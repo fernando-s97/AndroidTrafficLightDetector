@@ -38,11 +38,15 @@ class MainActivity : AppCompatActivity() {
     
     override fun onStart() {
         super.onStart()
-        
-        arduino.setArduinoListener(ArduinoListenerImpl(this, arduino))
+    
+        arduino.setArduinoListener(ArduinoListenerImpl(this, arduino, this))
         
         loadOpenCv()
-        
+    
+        startProcessing() // TODO (Remove later: only arduino can start it)
+    }
+    
+    fun startProcessing() {
         javaCameraView.setCvCameraViewListener(CvCameraListener(this, arduino))
     }
     
@@ -50,7 +54,11 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
         
         arduino.unsetArduinoListener()
-        
+    
+        stopProcessing()
+    }
+    
+    fun stopProcessing() {
         javaCameraView.disableView()
     }
     
@@ -58,8 +66,8 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         
         arduino.close()
-        
-        javaCameraView.disableView()
+    
+        stopProcessing()
     }
     
     private fun check4CameraPermission() {

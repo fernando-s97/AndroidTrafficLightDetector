@@ -25,7 +25,7 @@ class CvCameraListener(private val activity: Activity, private val arduino: MyAr
     private lateinit var blurredImg: Mat
     private lateinit var finalImg: Mat
     
-    private var processCounter = 0
+    private var processFrameCounter = 0
     
     override fun onCameraViewStarted(width: Int, height: Int) {
         rgbaImg = Mat(height, width, CvType.CV_8UC1)
@@ -43,9 +43,9 @@ class CvCameraListener(private val activity: Activity, private val arduino: MyAr
     
     override fun onCameraFrame(inputFrame: CameraBridgeViewBase.CvCameraViewFrame?): Mat {
         rgbaImg = inputFrame?.rgba()!!
-        
-        if (processCounter == 2) {
-            processCounter = 0
+    
+        if (processFrameCounter == 2) {
+            processFrameCounter = 0
             return this.rgbaImg
         }
         
@@ -66,8 +66,8 @@ class CvCameraListener(private val activity: Activity, private val arduino: MyAr
             arduino.send(command)
             Log.i(LOG_TAG, "Command sent: $command")
         }
-        
-        processCounter++
+    
+        processFrameCounter++
         
         System.gc()
         
