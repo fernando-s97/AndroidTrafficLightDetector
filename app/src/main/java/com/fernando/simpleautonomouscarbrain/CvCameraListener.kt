@@ -5,20 +5,21 @@ import android.util.Log
 import android.widget.Toast
 import com.fernando.simpleautonomouscarbrain.arduino.ArduinoListenerImpl
 import com.fernando.simpleautonomouscarbrain.arduino.MyArduino
+import com.fernando.simpleautonomouscarbrain.imageProcessing.ITrafficLightProcessing
 import com.fernando.simpleautonomouscarbrain.imageProcessing.TrafficLightProcessing
-import com.fernando.simpleautonomouscarbrain.imageProcessing.TrafficLightProcessingImpl
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
 import org.opencv.core.CvType
 import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 
-class CvCameraListener(private val activity: Activity, private val arduino: MyArduino) : CvCameraViewListener2 {
+class CvCameraListener(private val activity: Activity,
+                       private val arduino: MyArduino) : CvCameraViewListener2 {
     companion object {
         private const val LOG_TAG = "CvCameraListener"
     }
     
-    private val trafficLight: TrafficLightProcessing = TrafficLightProcessingImpl()
+    private val trafficLight: ITrafficLightProcessing = TrafficLightProcessing()
     
     private lateinit var rgbaImg: Mat
     private lateinit var hsvImg: Mat
@@ -54,8 +55,8 @@ class CvCameraListener(private val activity: Activity, private val arduino: MyAr
         Imgproc.cvtColor(blurredImg, hsvImg, Imgproc.COLOR_RGB2HSV)
         
         val command = when (trafficLight.getState(hsvImg, finalImg)) {
-            TrafficLightProcessing.RED -> ArduinoListenerImpl.BRAKE_COMMAND
-            TrafficLightProcessing.GREEN -> ArduinoListenerImpl.DRIVE_COMMAND
+            ITrafficLightProcessing.RED -> ArduinoListenerImpl.BRAKE_COMMAND
+            ITrafficLightProcessing.GREEN -> ArduinoListenerImpl.DRIVE_COMMAND
             else -> ArduinoListenerImpl.NONE_COMMAND
         }
         
