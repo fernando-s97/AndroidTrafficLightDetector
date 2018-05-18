@@ -9,8 +9,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.fernando.simpleautonomouscarbrain.arduino.MyArduino
-import com.fernando.simpleautonomouscarbrain.arduino.MyArduinoListener
+import me.aflak.arduino.Arduino
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.LoaderCallbackInterface
@@ -22,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         private const val CAMERA_PRC = 0 // PRC = Permission Request Code
     }
     
-    private lateinit var arduino: MyArduino
+    private lateinit var arduino: Arduino
     private lateinit var javaCameraView: CameraBridgeViewBase
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) check4CameraPermission()
-        
-        arduino = MyArduino(this)
+    
+        arduino = Arduino(this, 115200)
         
         javaCameraView = findViewById(R.id.javaCameraView)
     }

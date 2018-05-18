@@ -3,10 +3,8 @@ package com.fernando.simpleautonomouscarbrain
 import android.app.Activity
 import android.util.Log
 import android.widget.Toast
-import com.fernando.simpleautonomouscarbrain.arduino.MyArduino
-import com.fernando.simpleautonomouscarbrain.arduino.MyArduinoListener
 import com.fernando.simpleautonomouscarbrain.imageProcessing.ITrafficLightProcessing
-import com.fernando.simpleautonomouscarbrain.imageProcessing.TrafficLightProcessing
+import me.aflak.arduino.Arduino
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
 import org.opencv.core.CvType
@@ -14,7 +12,7 @@ import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 
 class CvCameraListener(private val activity: Activity,
-                       private val arduino: MyArduino) : CvCameraViewListener2 {
+                       private val arduino: Arduino) : CvCameraViewListener2 {
     companion object {
         private const val LOG_TAG = "CvCameraListener"
     }
@@ -64,7 +62,7 @@ class CvCameraListener(private val activity: Activity,
             activity.runOnUiThread {
                 Toast.makeText(activity, "Command: $command", Toast.LENGTH_SHORT).show()
             }
-            arduino.send(command)
+            arduino.send(command.toByteArray())
             Log.i(LOG_TAG, "Command sent: $command")
         }
     
