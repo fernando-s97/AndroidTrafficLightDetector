@@ -3,8 +3,8 @@ package com.fernando.simpleautonomouscarbrain
 import android.app.Activity
 import android.util.Log
 import android.widget.Toast
-import com.fernando.simpleautonomouscarbrain.arduino.ArduinoListenerImpl
 import com.fernando.simpleautonomouscarbrain.arduino.MyArduino
+import com.fernando.simpleautonomouscarbrain.arduino.MyArduinoListener
 import com.fernando.simpleautonomouscarbrain.imageProcessing.ITrafficLightProcessing
 import com.fernando.simpleautonomouscarbrain.imageProcessing.TrafficLightProcessing
 import org.opencv.android.CameraBridgeViewBase
@@ -55,12 +55,12 @@ class CvCameraListener(private val activity: Activity,
         Imgproc.cvtColor(blurredImg, hsvImg, Imgproc.COLOR_RGB2HSV)
         
         val command = when (trafficLight.getState(hsvImg, finalImg)) {
-            ITrafficLightProcessing.RED -> ArduinoListenerImpl.BRAKE_COMMAND
-            ITrafficLightProcessing.GREEN -> ArduinoListenerImpl.DRIVE_COMMAND
-            else -> ArduinoListenerImpl.NONE_COMMAND
+            ITrafficLightProcessing.RED -> MyArduinoListener.BRAKE_COMMAND
+            ITrafficLightProcessing.GREEN -> MyArduinoListener.DRIVE_COMMAND
+            else -> MyArduinoListener.NONE_COMMAND
         }
-        
-        if (command != ArduinoListenerImpl.NONE_COMMAND) {
+    
+        if (command != MyArduinoListener.NONE_COMMAND) {
             activity.runOnUiThread {
                 Toast.makeText(activity, "Command: $command", Toast.LENGTH_SHORT).show()
             }

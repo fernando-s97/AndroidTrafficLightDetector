@@ -9,8 +9,8 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.fernando.simpleautonomouscarbrain.arduino.ArduinoListenerImpl
 import com.fernando.simpleautonomouscarbrain.arduino.MyArduino
+import com.fernando.simpleautonomouscarbrain.arduino.MyArduinoListener
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.LoaderCallbackInterface
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
     
-        arduino.setArduinoListener(ArduinoListenerImpl(this, arduino, this))
+        arduino.setArduinoListener(MyArduinoListener(this, arduino, this))
         
         loadOpenCv()
     
