@@ -38,11 +38,11 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
     
-        arduino.setArduinoListener(MyArduinoListener(this, arduino, this))
+        arduino.setArduinoListener(MyArduinoListener(this, arduino))
         
         loadOpenCv()
     
-        startProcessing() // TODO (Remove later: only arduino can start it)
+        startProcessing() // TODO (Remove later: only arduino should start it)
     }
     
     fun startProcessing() {
