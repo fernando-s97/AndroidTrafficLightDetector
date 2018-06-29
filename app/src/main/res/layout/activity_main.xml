@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context="com.fernando.simpleautonomouscarbrain.MainActivity">
+    tools:context="com.fernando.androidtrafficlightdetector.MainActivity">
 
     <org.opencv.android.JavaCameraView
         android:id="@+id/javaCameraView"

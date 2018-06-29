@@ -1,4 +1,4 @@
-package com.fernando.simpleautonomouscarbrain
+package com.fernando.androidtrafficlightdetector
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.fernando.simpleautonomouscarbrain", appContext.packageName)
+        assertEquals("com.fernando.androidtrafficlightdetector", appContext.packageName)
     }
 }

@@ -1,4 +1,4 @@
-package com.fernando.simpleautonomouscarbrain
+package com.fernando.androidtrafficlightdetector
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
